@@ -1,0 +1,36 @@
+name: Deploy & Run Glue Jobs
+
+on:
+  workflow_dispatch:  
+  push:
+    branches:
+      - main
+
+jobs:
+  glue-jobs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS CLI
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload Append script to S3
+        run: aws s3 cp liqclus_append.py s3://gluescriptsworkflow/scripts_append/liqclus_append.py
+
+      - name: Upload Overwrite script to S3
+        run: aws s3 cp liqclus_overwrite.py s3://gluescriptsworkflow/scripts_overwrite/liqclus_overwrite.py
+
+      - name: Trigger Append Glue Job
+        run: |
+          aws glue start-job-run --job-name Gclus_append job
+
+      - name: Trigger Overwrite Glue Job
+        run: |
+          aws glue start-job-run --job-name Gclus_overwrite job

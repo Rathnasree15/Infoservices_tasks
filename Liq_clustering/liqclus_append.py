@@ -68,7 +68,7 @@ df = spark.createDataFrame(data, columns).withColumn("date", to_date(col("date")
 df.show()
 
 # Table path & name
-output_path = "s3://liqclustering/liqclustering_output/"
+output_path = "s3://gluescriptsworkflow/output/"
 table_name = "my_liqclu_table"
 
 # To remove old table conflicts
