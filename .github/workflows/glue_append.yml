@@ -1,4 +1,4 @@
-name: Deploy & Run Glue Jobs
+name: Deploy & Run Glue Job with append
 
 on:
   workflow_dispatch:  
@@ -24,13 +24,6 @@ jobs:
       - name: Upload Append script to S3
         run: aws s3 cp Liq_clustering/liqclus_append.py s3://gluescriptsworkflow/scripts_append/glue_clus_append.py
 
-      - name: Upload Overwrite script to S3
-        run: aws s3 cp Liq_clustering/liqclus_overwrite.py s3://gluescriptsworkflow/scripts_overwrite/glue_clus_overwrite.py
-
       - name: Trigger Append Glue Job
         run: |
-          aws glue start-job-run --job-name glue_clus_append --wait job-run-succeeded
-
-      - name: Trigger Overwrite Glue Job
-        run: |
-          aws glue start-job-run --job-name glue_clus_overwrite --wait job-run-succeeded
+          aws glue start-job-run --job-name glue_clus_append 
