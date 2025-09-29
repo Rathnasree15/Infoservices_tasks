@@ -29,8 +29,8 @@ jobs:
 
       - name: Trigger Append Glue Job
         run: |
-          aws glue start-job-run --job-name glue_clus_append
+          aws glue start-job-run --job-name glue_clus_append --wait job-run-succeeded
 
       - name: Trigger Overwrite Glue Job
         run: |
-          aws glue start-job-run --job-name glue_clus_overwrite
+          aws glue start-job-run --job-name glue_clus_overwrite --wait job-run-succeeded
