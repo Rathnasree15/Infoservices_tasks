@@ -22,10 +22,10 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload Append script to S3
-        run: aws s3 cp Liq_clustering/liqclus_append.py s3://gluescriptsworkflow/scripts_append/liqclus_append.py
+        run: aws s3 cp Liq_clustering/liqclus_append.py s3://gluescriptsworkflow/scripts_append/
 
       - name: Upload Overwrite script to S3
-        run: aws s3 cp Liq_clustering/liqclus_overwrite.py s3://gluescriptsworkflow/scripts_overwrite/liqclus_overwrite.py
+        run: aws s3 cp Liq_clustering/liqclus_overwrite.py s3://gluescriptsworkflow/scripts_overwrite/
 
       - name: Trigger Append Glue Job
         run: |
